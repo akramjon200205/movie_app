@@ -1,4 +1,4 @@
-class MovieDetail {
+class MovieDetailModel {
   int? id;
   String? originalTitle;
   List<Genres>? genres;
@@ -8,7 +8,7 @@ class MovieDetail {
   List<ProductionCompanies>? productionCompanies;
   double? voteAverage;
 
-  MovieDetail(
+  MovieDetailModel(
       {this.id,
       this.originalTitle,
       this.genres,
@@ -18,7 +18,7 @@ class MovieDetail {
       this.productionCompanies,
       this.voteAverage});
 
-  MovieDetail.fromJson(Map<String, dynamic> json) {
+  MovieDetailModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     originalTitle = json['original_title'];
     if (json['genres'] != null) {

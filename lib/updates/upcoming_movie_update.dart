@@ -6,7 +6,7 @@ import 'package:fluttery_movies/utills/constants.dart';
 import 'package:http/http.dart';
 
 class UpcomingMovieUpdate {
-   Future getNowPlayingMovies() async {
+   Future getUpcomingMovies() async {
     ;
     String url = '$baseUrl/3/movie/upcoming?api_key=$apiKey&page=1';
 

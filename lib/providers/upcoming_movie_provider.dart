@@ -16,7 +16,7 @@ class UpcomingMovieProvider extends ChangeNotifier {
   uploads() async {
     state = UpcomingState.isBusy;
     notifyListeners();
-    var request = await UpcomingMovieUpdate().getNowPlayingMovies();
+    var request = await UpcomingMovieUpdate().getUpcomingMovies();
 
     for (var element in request['results']) {
       upcomingMovieList.add(

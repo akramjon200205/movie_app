@@ -16,7 +16,7 @@ class PopularMovieProvider extends ChangeNotifier {
   uploads() async {
     state = PopularMovieState.isBusy;
     notifyListeners();
-    var request = await PopularMovieUpdate().getNowPlayingMovies();
+    var request = await PopularMovieUpdate().getPopularMovies();
 
     for (var element in request['results']) {
       popularMovieList.add(
