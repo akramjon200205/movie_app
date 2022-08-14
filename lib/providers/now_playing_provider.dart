@@ -32,8 +32,8 @@ class NowPlayingProvider extends ChangeNotifier {
     }
 
     state = NowPlayingState.isSuccess;
-    print(nowPlayingList.length);
-    print('$images\n');
+    // print(nowPlayingList.length);
+    // print('$images\n');
     notifyListeners();
   }
 }

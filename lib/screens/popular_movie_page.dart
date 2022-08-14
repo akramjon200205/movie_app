@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttery_movies/information/MovieDetailsPage.dart';
 import 'package:fluttery_movies/providers/popular_movie_provider.dart';
 import 'package:fluttery_movies/utills/constants.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,14 @@ class _PopularPageState extends State<PopularPage> {
 
             return GestureDetector(
               onTap: () {
-                
+                if (provider.popularMovieList[index].id! > 0) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => MovieDetailsPage(
+                                provider.popularMovieList[index].id!,
+                              )));
+                }
               },
               child: Stack(children: [
                 SizedBox(

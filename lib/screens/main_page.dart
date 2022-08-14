@@ -23,6 +23,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Consumer<BottomNavigationBarProvider>(
       builder: (context, provider, child) {
         return Scaffold(

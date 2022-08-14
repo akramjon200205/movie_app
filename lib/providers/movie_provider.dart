@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fluttery_movies/models/movie_detail.dart';
+import 'package:fluttery_movies/models/movie_detail_model.dart';
 import 'package:fluttery_movies/updates/movie_model_update.dart';
 
 enum MovieDetailState {
@@ -10,29 +10,32 @@ enum MovieDetailState {
 }
 
 class MovieProvider extends ChangeNotifier {
-  List<MovieDetailModel> movieDetailModelList = [];
   MovieDetailState state = MovieDetailState.isInit;
-  MovieDetailModel movieDetailModel = MovieDetailModel();
-  List<String> images = [];
+  late MovieDetailModel movieDetailModel;
 
-  uploads() async {
+  uploads(int movieId) async {
     state = MovieDetailState.isBusy;
     notifyListeners();
-    var request = await MovieDetailUpdate().getMovieDetailMovies();
+    var request = await MovieDetailUpdate().getMovieDetailMovies(movieId);
 
-    for (var element in request['results']) {      
-      movieDetailModelList.add(MovieDetailModel.fromJson(element));
-    }
+    movieDetailModel = MovieDetailModel.fromJson(request);
 
-    for (int i = 0; i < movieDetailModelList.length; i++) {
-      String imageURLS =
-          "${movieDetailModelList[i].posterPath}";
-      images.add(imageURLS);
-    }
+    // for (int i = 0; i < movieDetailModelList.length; i++) {
+    //   String imageURLS =
+    //       "${movieDetailModelList[i].posterPath}";
+    //   images.add(imageURLS);
+    // }
 
     state = MovieDetailState.isSuccess;
-    print(movieDetailModelList.length);
-    print('$images\n');
+    // print('$images\n');
     notifyListeners();
+  }
+
+  void updatePage() {
+    notifyListeners();
+  }
+
+  onDispose() {
+    state = MovieDetailState.isInit;
   }
 }

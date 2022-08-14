@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttery_movies/information/MovieDetailsPage.dart';
 import 'package:fluttery_movies/models/upcoming_movie.dart';
 import 'package:fluttery_movies/providers/now_playing_provider.dart';
 import 'package:fluttery_movies/providers/upcoming_movie_provider.dart';
@@ -35,7 +36,16 @@ class _UpcomingMoviePageState extends State<UpcomingMoviePage> {
             String images =
                 "https://image.tmdb.org/t/p/w500/${provider.images[index]}";
             return GestureDetector(
-              onTap: () {},
+              onTap: () {
+                if (provider.upcomingMovieList[index].id! > 0) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => MovieDetailsPage(
+                                provider.upcomingMovieList[index].id!,
+                              )));
+                }
+              },
               child: SizedBox(
                 height: 120,
                 child: Stack(children: [
