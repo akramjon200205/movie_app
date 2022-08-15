@@ -3,7 +3,6 @@ import 'package:fluttery_movies/information/MovieDetailsPage.dart';
 import 'package:fluttery_movies/providers/popular_movie_provider.dart';
 import 'package:fluttery_movies/utills/constants.dart';
 import 'package:provider/provider.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class PopularPage extends StatefulWidget {
   const PopularPage({Key? key}) : super(key: key);
@@ -31,10 +30,7 @@ class _PopularPageState extends State<PopularPage> {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
           ),
-          itemBuilder: (context, index) {
-            String images =
-                "https://image.tmdb.org/t/p/w500/${provider.images[index]}";
-
+          itemBuilder: (context, index) {          
             return GestureDetector(
               onTap: () {
                 if (provider.popularMovieList[index].id! > 0) {
@@ -51,7 +47,7 @@ class _PopularPageState extends State<PopularPage> {
                     height: 180,
                     width: double.infinity,
                     child: Image.network(
-                      images,
+                      "https://image.tmdb.org/t/p/w500/${provider.popularMovieList[index].posterPath}",
                       fit: BoxFit.cover,
                     )),
                 Align(

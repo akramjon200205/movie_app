@@ -16,12 +16,32 @@ class UpcomingMovie {
       this.overview,
       this.releaseDate});
 
+  UpcomingMovie copyWith({
+    int? id,
+    String? posterPath,
+    String? backdropPath,
+    String? originalTitle,
+    double? voteAverage,
+    String? overview,
+    String? releaseDate,
+  }) {
+    return UpcomingMovie(
+      id: id ?? this.id,
+      posterPath: posterPath ?? this.posterPath,
+      backdropPath: backdropPath ?? this.backdropPath,
+      originalTitle: originalTitle ?? this.originalTitle,
+      voteAverage: voteAverage ?? this.voteAverage,
+      overview: overview ?? this.overview,
+      releaseDate: releaseDate ?? this.releaseDate,
+    );
+  }
+
   UpcomingMovie.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     posterPath = json['poster_path'];
     backdropPath = json['backdrop_path'];
     originalTitle = json['original_title'];
-    voteAverage = (json['vote_average']as num).toDouble();
+    voteAverage = (json['vote_average'] as num).toDouble();
     overview = json['overview'];
     releaseDate = json['release_date'];
   }

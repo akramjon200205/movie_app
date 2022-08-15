@@ -30,16 +30,17 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
       builder: (context, provider, child) {
         providers = provider;
         if (provider.state == MovieDetailState.isInit) {
-          provider.uploads(widget.id);
-          provider.updatePage();
+          Future.delayed(Duration.zero, () {
+            provider.uploads(widget.id);
+            provider.updatePage();
+          });
         }
         switch (provider.state) {
           case MovieDetailState.isBusy:
             return Container(
               color: Colors.white,
               child: const Center(
-                child: CircularProgressIndicator(
-                ),
+                child: CircularProgressIndicator(),
               ),
             );
           case MovieDetailState.isSuccess:

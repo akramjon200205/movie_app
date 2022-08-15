@@ -20,14 +20,8 @@ class MovieProvider extends ChangeNotifier {
 
     movieDetailModel = MovieDetailModel.fromJson(request);
 
-    // for (int i = 0; i < movieDetailModelList.length; i++) {
-    //   String imageURLS =
-    //       "${movieDetailModelList[i].posterPath}";
-    //   images.add(imageURLS);
-    // }
-
     state = MovieDetailState.isSuccess;
-    // print('$images\n');
+    
     notifyListeners();
   }
 

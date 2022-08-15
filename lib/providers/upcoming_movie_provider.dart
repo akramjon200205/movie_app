@@ -11,9 +11,14 @@ enum UpcomingState {
 
 class UpcomingMovieProvider extends ChangeNotifier {
   List<UpcomingMovie> upcomingMovieList = [];
+  List<UpcomingMovie> upcomingMovieListCopy = [];
+
   UpcomingState state = UpcomingState.isInit;
   List<String> images = [];
+
   uploads() async {
+    upcomingMovieList.clear();
+    upcomingMovieListCopy.clear();
     state = UpcomingState.isBusy;
     notifyListeners();
     var request = await UpcomingMovieUpdate().getUpcomingMovies();
@@ -24,11 +29,32 @@ class UpcomingMovieProvider extends ChangeNotifier {
       );
     }
 
-    for (int i = 0; i < upcomingMovieList.length; i++) {
-      String imageURLS = "${upcomingMovieList[i].posterPath}";
-      images.add(imageURLS);
+    for (UpcomingMovie element in upcomingMovieList) {
+      upcomingMovieListCopy.add(element.copyWith());
     }
+    
     state = UpcomingState.isSuccess;
+    notifyListeners();
+  }
+
+  searchFuncUpcoming(String searchText) {
+    print(searchText);
+    if (searchText.isNotEmpty) {
+      List<UpcomingMovie> tempSearchList = [];
+
+      for (int i = 0; i < upcomingMovieListCopy.length; i++) {
+        bool result = upcomingMovieListCopy[i]
+            .originalTitle!
+            .toLowerCase()
+            .contains(searchText.toLowerCase());
+        if (result) {
+          tempSearchList.add(upcomingMovieListCopy[i]);
+        }
+      }
+      upcomingMovieList = tempSearchList;
+    } else {
+      upcomingMovieList = upcomingMovieListCopy;
+    }
     notifyListeners();
   }
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttery_movies/information/MovieDetailsPage.dart';
-import 'package:fluttery_movies/models/upcoming_movie.dart';
-import 'package:fluttery_movies/providers/now_playing_provider.dart';
 import 'package:fluttery_movies/providers/upcoming_movie_provider.dart';
 import 'package:fluttery_movies/utills/constants.dart';
 import 'package:provider/provider.dart';
@@ -32,9 +30,7 @@ class _UpcomingMoviePageState extends State<UpcomingMoviePage> {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
           ),
-          itemBuilder: (context, index) {
-            String images =
-                "https://image.tmdb.org/t/p/w500/${provider.images[index]}";
+          itemBuilder: (context, index) {            
             return GestureDetector(
               onTap: () {
                 if (provider.upcomingMovieList[index].id! > 0) {
@@ -53,7 +49,7 @@ class _UpcomingMoviePageState extends State<UpcomingMoviePage> {
                       height: 180,
                       width: double.infinity,
                       child: Image.network(
-                        images,
+                        "https://image.tmdb.org/t/p/w500/${provider.upcomingMovieList[index].posterPath}",
                         fit: BoxFit.cover,
                       )),
                   Align(

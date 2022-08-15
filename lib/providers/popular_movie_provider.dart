@@ -11,9 +11,13 @@ enum PopularMovieState {
 
 class PopularMovieProvider extends ChangeNotifier {
   List<PopularMovie> popularMovieList = [];
+  List<PopularMovie> popularMovieListCopy = [];
   PopularMovieState state = PopularMovieState.isInit;
   List<String> images = [];
+
   uploads() async {
+    popularMovieList.clear();
+    popularMovieListCopy.clear();
     state = PopularMovieState.isBusy;
     notifyListeners();
     var request = await PopularMovieUpdate().getPopularMovies();
@@ -23,14 +27,37 @@ class PopularMovieProvider extends ChangeNotifier {
         PopularMovie.fromJson(element),
       );
     }
+    for (PopularMovie element in popularMovieList) {
+      popularMovieListCopy.add(element.copyWith());
+    }
 
     for (int i = 0; i < popularMovieList.length; i++) {
       String imageURLS = "${popularMovieList[i].posterPath}";
       images.add(imageURLS);
     }
-    state = PopularMovieState.isSuccess;
-    print(popularMovieList.length);
-    print(images);
+    state = PopularMovieState.isSuccess;    
+    notifyListeners();
+  }
+
+  
+  searchFuncPopular(String searchText) {
+    print(searchText);
+    if (searchText.isNotEmpty) {
+      List<PopularMovie> tempSearchList = [];
+
+      for (int i = 0; i < popularMovieListCopy.length; i++) {
+        bool result = popularMovieListCopy[i]
+            .originalTitle!
+            .toLowerCase()
+            .contains(searchText.toLowerCase());
+        if (result) {
+          tempSearchList.add(popularMovieListCopy[i]);
+        }
+      }
+      popularMovieList = tempSearchList;
+    } else {
+      popularMovieList = popularMovieListCopy;
+    }
     notifyListeners();
   }
 }

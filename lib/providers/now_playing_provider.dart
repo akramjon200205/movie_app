@@ -11,29 +11,48 @@ enum NowPlayingState {
 
 class NowPlayingProvider extends ChangeNotifier {
   List<NowPlayingMovieModel> nowPlayingList = [];
-  NowPlayingState state = NowPlayingState.isInit;
-  NowPlayingMovieModel nowPlayingMovieModel = NowPlayingMovieModel();
-  List<String> images = [];
+  List<NowPlayingMovieModel> nowPlayingListCopy = [];
+  NowPlayingState state = NowPlayingState.isInit; 
 
   uploads() async {
+    nowPlayingList.clear();
+    nowPlayingListCopy.clear();
     state = NowPlayingState.isBusy;
     notifyListeners();
     var request = await NowPlayingMovieUpdate().getNowPlayingMovies();
 
     for (var element in request['results']) {
-      // nowPlayingMovieModel = ;
       nowPlayingList.add(NowPlayingMovieModel.fromJson(element));
     }
 
-    for (int i = 0; i < nowPlayingList.length; i++) {
-      String imageURLS =
-          "${nowPlayingList[i].posterPath}";
-      images.add(imageURLS);
-    }
+    for (NowPlayingMovieModel element in nowPlayingList) {
+      nowPlayingListCopy.add(element.copyWith());
+    }  
 
+    
     state = NowPlayingState.isSuccess;
-    // print(nowPlayingList.length);
-    // print('$images\n');
+    
+    notifyListeners();
+  }
+
+  searchFuncNowPlaying(String searchText) {
+    print(searchText);
+    if (searchText.isNotEmpty) {
+      List<NowPlayingMovieModel> tempSearchList = [];
+
+      for (int i = 0; i < nowPlayingListCopy.length; i++) {
+        bool result = nowPlayingListCopy[i]
+            .originalTitle!
+            .toLowerCase()
+            .contains(searchText.toLowerCase());
+        if (result) {
+          tempSearchList.add(nowPlayingListCopy[i]);
+        }
+      }
+      nowPlayingList = tempSearchList;
+    } else {
+      nowPlayingList = nowPlayingListCopy;
+    }
     notifyListeners();
   }
 }

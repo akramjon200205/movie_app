@@ -13,6 +13,12 @@ class NowPlaying extends StatefulWidget {
 
 class _NowPlayingState extends State<NowPlaying> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();    
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<NowPlayingProvider>(
       builder: (context, provider, child) {
@@ -30,9 +36,7 @@ class _NowPlayingState extends State<NowPlaying> {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
           ),
-          itemBuilder: (context, index) {
-            String images =
-                "https://image.tmdb.org/t/p/w500/${provider.images[index]}";
+          itemBuilder: (context, index) {            
             return GestureDetector(
               onTap: () {
                 if (provider.nowPlayingList[index].id! > 0) {
@@ -46,32 +50,34 @@ class _NowPlayingState extends State<NowPlaying> {
               },
               child: SizedBox(
                 height: 120,
-                child: Stack(children: [
-                  SizedBox(
-                      height: 180,
-                      width: double.infinity,
-                      child: Image.network(
-                        images,
-                        fit: BoxFit.cover,
-                      )),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 30,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(color: Colors.black45),
-                      child: Text(
-                        "${provider.nowPlayingList[index].originalTitle}",
-                        style: kTextStyle(
-                          size: 12,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
+                child: Stack(
+                  children: [
+                    SizedBox(
+                        height: 180,
+                        width: double.infinity,
+                        child: Image.network(
+                          "https://image.tmdb.org/t/p/w500/${provider.nowPlayingList[index].posterPath}",
+                          fit: BoxFit.cover,
+                        )),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 30,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(color: Colors.black45),
+                        child: Text(
+                          "${provider.nowPlayingList[index].originalTitle}",
+                          style: kTextStyle(
+                            size: 12,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ]),
+                  ],
+                ),
               ),
             );
           },
