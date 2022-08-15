@@ -6,6 +6,7 @@ class UpcomingMovie {
   double? voteAverage;
   String? overview;
   String? releaseDate;
+  double? popularity;
 
   UpcomingMovie(
       {this.id,
@@ -14,7 +15,9 @@ class UpcomingMovie {
       this.originalTitle,
       this.voteAverage,
       this.overview,
-      this.releaseDate});
+      this.releaseDate,
+      this.popularity,
+      });
 
   UpcomingMovie copyWith({
     int? id,
@@ -24,6 +27,7 @@ class UpcomingMovie {
     double? voteAverage,
     String? overview,
     String? releaseDate,
+    double? popularity,
   }) {
     return UpcomingMovie(
       id: id ?? this.id,
@@ -33,6 +37,7 @@ class UpcomingMovie {
       voteAverage: voteAverage ?? this.voteAverage,
       overview: overview ?? this.overview,
       releaseDate: releaseDate ?? this.releaseDate,
+      popularity: popularity ?? this.popularity,
     );
   }
 
@@ -44,6 +49,7 @@ class UpcomingMovie {
     voteAverage = (json['vote_average'] as num).toDouble();
     overview = json['overview'];
     releaseDate = json['release_date'];
+     popularity = (json['popularity'] as num).toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +61,7 @@ class UpcomingMovie {
     data['vote_average'] = this.voteAverage;
     data['overview'] = this.overview;
     data['release_date'] = this.releaseDate;
+    data['popularity'] = this.popularity;
     return data;
   }
 }

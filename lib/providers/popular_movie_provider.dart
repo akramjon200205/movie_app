@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fluttery_movies/models/popular_movie.dart';
+import 'package:fluttery_movies/models/popular_movie_model.dart';
 import 'package:fluttery_movies/updates/popular_movie_update.dart';
 
 enum PopularMovieState {
@@ -30,11 +30,7 @@ class PopularMovieProvider extends ChangeNotifier {
     for (PopularMovie element in popularMovieList) {
       popularMovieListCopy.add(element.copyWith());
     }
-
-    for (int i = 0; i < popularMovieList.length; i++) {
-      String imageURLS = "${popularMovieList[i].posterPath}";
-      images.add(imageURLS);
-    }
+        
     state = PopularMovieState.isSuccess;    
     notifyListeners();
   }
@@ -58,6 +54,22 @@ class PopularMovieProvider extends ChangeNotifier {
     } else {
       popularMovieList = popularMovieListCopy;
     }
+    notifyListeners();
+  }
+
+  sortByNamePopular() {
+    popularMovieList.sort((a, b) {
+      return a.originalTitle!.compareTo(b.originalTitle!);
+    });
+    notifyListeners();
+  }
+
+  sortByPopularityPopular() {
+    popularMovieList.sort(
+      (a, b) {
+        return a.popularity!.compareTo(b.popularity!);
+      },
+    );
     notifyListeners();
   }
 }

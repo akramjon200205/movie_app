@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fluttery_movies/models/now_playing_movie.dart';
+import 'package:fluttery_movies/models/now_playing_movie_model.dart';
 import 'package:fluttery_movies/updates/now_playing_movie_update.dart';
 
 enum NowPlayingState {
@@ -12,7 +12,7 @@ enum NowPlayingState {
 class NowPlayingProvider extends ChangeNotifier {
   List<NowPlayingMovieModel> nowPlayingList = [];
   List<NowPlayingMovieModel> nowPlayingListCopy = [];
-  NowPlayingState state = NowPlayingState.isInit; 
+  NowPlayingState state = NowPlayingState.isInit;
 
   uploads() async {
     nowPlayingList.clear();
@@ -27,11 +27,10 @@ class NowPlayingProvider extends ChangeNotifier {
 
     for (NowPlayingMovieModel element in nowPlayingList) {
       nowPlayingListCopy.add(element.copyWith());
-    }  
+    }
 
-    
     state = NowPlayingState.isSuccess;
-    
+
     notifyListeners();
   }
 
@@ -53,6 +52,22 @@ class NowPlayingProvider extends ChangeNotifier {
     } else {
       nowPlayingList = nowPlayingListCopy;
     }
+    notifyListeners();
+  }
+
+  sortByNameNowPlaying() {
+    nowPlayingList.sort((a, b) {
+      return a.originalTitle!.compareTo(b.originalTitle!);
+    });
+    notifyListeners();
+  }
+
+  sortByPopularityNowPlaying() {
+    nowPlayingList.sort(
+      (a, b) {
+        return a.popularity!.compareTo(b.popularity!);
+      },
+    );
     notifyListeners();
   }
 }

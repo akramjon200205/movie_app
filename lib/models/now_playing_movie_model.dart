@@ -1,4 +1,4 @@
-class PopularMovie {
+class NowPlayingMovieModel {
   int? id;
   String? title;
   String? posterPath;
@@ -7,18 +7,21 @@ class PopularMovie {
   double? voteAverage;
   String? overview;
   String? releaseDate;
+  double? popularity;
 
-  PopularMovie(
-      {this.id,
-      this.title,
-      this.posterPath,
-      this.backdropPath,
-      this.originalTitle,
-      this.voteAverage,
-      this.overview,
-      this.releaseDate});
+  NowPlayingMovieModel({
+    this.id,
+    this.title,
+    this.posterPath,
+    this.backdropPath,
+    this.originalTitle,
+    this.voteAverage,
+    this.overview,
+    this.releaseDate,
+    this.popularity,
+  });
 
- PopularMovie copyWith({
+  NowPlayingMovieModel copyWith({
     int? id,
     String? title,
     String? posterPath,
@@ -27,8 +30,9 @@ class PopularMovie {
     double? voteAverage,
     String? overview,
     String? releaseDate,
+    double? popularity,
   }) {
-    return PopularMovie(
+    return NowPlayingMovieModel(
       id: id ?? this.id,
       title: title ?? this.title,
       posterPath: posterPath ?? this.posterPath,
@@ -37,17 +41,20 @@ class PopularMovie {
       voteAverage: voteAverage ?? this.voteAverage,
       overview: overview ?? this.overview,
       releaseDate: releaseDate ?? this.releaseDate,
+      popularity: popularity ?? this.popularity,
     );
   }
-  PopularMovie.fromJson(Map<String, dynamic> json) {
+
+  NowPlayingMovieModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     posterPath = json['poster_path'];
     backdropPath = json['backdrop_path'];
     originalTitle = json['original_title'];
-    voteAverage = (json['vote_average'] as num).toDouble() ;
+    voteAverage = (json['vote_average'] as num).toDouble();
     overview = json['overview'];
     releaseDate = json['release_date'];
+    popularity = (json['popularity'] as num).toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -60,6 +67,7 @@ class PopularMovie {
     data['vote_average'] = this.voteAverage;
     data['overview'] = this.overview;
     data['release_date'] = this.releaseDate;
+    data['popularity'] = this.popularity;
     return data;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fluttery_movies/models/upcoming_movie.dart';
+import 'package:fluttery_movies/models/upcoming_movie_model.dart';
 import 'package:fluttery_movies/updates/upcoming_movie_update.dart';
 
 enum UpcomingState {
@@ -32,7 +32,8 @@ class UpcomingMovieProvider extends ChangeNotifier {
     for (UpcomingMovie element in upcomingMovieList) {
       upcomingMovieListCopy.add(element.copyWith());
     }
-    
+
+    print(upcomingMovieList[0].popularity);
     state = UpcomingState.isSuccess;
     notifyListeners();
   }
@@ -55,6 +56,22 @@ class UpcomingMovieProvider extends ChangeNotifier {
     } else {
       upcomingMovieList = upcomingMovieListCopy;
     }
+    notifyListeners();
+  }
+
+  sortByNameUpcoming() {
+    upcomingMovieList.sort((a, b) {
+      return a.originalTitle!.compareTo(b.originalTitle!);
+    });
+    notifyListeners();
+  }
+
+  sortByPopularityUpcoming() {
+    upcomingMovieList.sort(
+      (a, b) {
+        return a.popularity!.compareTo(b.popularity!);
+      },
+    );
     notifyListeners();
   }
 }

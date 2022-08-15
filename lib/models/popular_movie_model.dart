@@ -1,4 +1,4 @@
-class NowPlayingMovieModel {
+class PopularMovie {
   int? id;
   String? title;
   String? posterPath;
@@ -7,8 +7,9 @@ class NowPlayingMovieModel {
   double? voteAverage;
   String? overview;
   String? releaseDate;
+  double? popularity;
 
-  NowPlayingMovieModel(
+  PopularMovie(
       {this.id,
       this.title,
       this.posterPath,
@@ -16,9 +17,11 @@ class NowPlayingMovieModel {
       this.originalTitle,
       this.voteAverage,
       this.overview,
-      this.releaseDate});
+      this.releaseDate,
+      this.popularity,
+      });
 
-  NowPlayingMovieModel copyWith({
+  PopularMovie copyWith({
     int? id,
     String? title,
     String? posterPath,
@@ -27,8 +30,9 @@ class NowPlayingMovieModel {
     double? voteAverage,
     String? overview,
     String? releaseDate,
+    double? popularity,
   }) {
-    return NowPlayingMovieModel(
+    return PopularMovie(
       id: id ?? this.id,
       title: title ?? this.title,
       posterPath: posterPath ?? this.posterPath,
@@ -37,10 +41,11 @@ class NowPlayingMovieModel {
       voteAverage: voteAverage ?? this.voteAverage,
       overview: overview ?? this.overview,
       releaseDate: releaseDate ?? this.releaseDate,
+      popularity: popularity ?? this.popularity,
     );
   }
 
-  NowPlayingMovieModel.fromJson(Map<String, dynamic> json) {
+  PopularMovie.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     posterPath = json['poster_path'];
@@ -49,6 +54,7 @@ class NowPlayingMovieModel {
     voteAverage = (json['vote_average'] as num).toDouble();
     overview = json['overview'];
     releaseDate = json['release_date'];
+    popularity = (json['popularity'] as num).toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -61,6 +67,7 @@ class NowPlayingMovieModel {
     data['vote_average'] = this.voteAverage;
     data['overview'] = this.overview;
     data['release_date'] = this.releaseDate;
+    data['popularity'] = this.popularity;
     return data;
   }
 }

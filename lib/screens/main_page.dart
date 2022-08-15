@@ -7,6 +7,8 @@ import 'package:fluttery_movies/providers/upcoming_movie_provider.dart';
 import 'package:fluttery_movies/screens/now_playing_page.dart';
 import 'package:fluttery_movies/screens/popular_movie_page.dart';
 import 'package:fluttery_movies/screens/upcoming_page.dart';
+import 'package:fluttery_movies/sorts/model_item.dart';
+import 'package:fluttery_movies/sorts/sort_items.dart';
 import 'package:fluttery_movies/utills/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -98,20 +100,28 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
             actions: [
-              PopupMenuButton<String>(
-                itemBuilder: (_) {
-                  return const [
-                    PopupMenuItem(
-                      value: 'Sort by name',
-                      child: Text('Sort by name'),
-                    ),
-                    PopupMenuItem(
-                      value: "Sort by Popularity",
-                      child: Text("Sort by Popularity"),
-                    ),
-                  ];
-                },
-              ),
+              provider.currentIndex == 0
+                  ? PopupMenuButton<SortItem>(
+                      onSelected: (item) => onSelectedNowPlaying(context, item),
+                      itemBuilder: (_) => [
+                        ...SortsItems.itemSorts.map(buildItem).toList(),
+                      ],
+                    )
+                  : provider.currentIndex == 2
+                      ? PopupMenuButton<SortItem>(
+                          onSelected: (item) =>
+                              onSelectedPopular(context, item),
+                          itemBuilder: (_) => [
+                            ...SortsItems.itemSorts.map(buildItem).toList(),
+                          ],
+                        )
+                      : PopupMenuButton<SortItem>(
+                          onSelected: (item) =>
+                              onSelectedUpcoming(context, item),
+                          itemBuilder: (_) => [
+                            ...SortsItems.itemSorts.map(buildItem).toList(),
+                          ],
+                        )
             ],
           ),
           body: provider.currentIndex == 0
@@ -161,5 +171,55 @@ class _MainPageState extends State<MainPage> {
         );
       },
     );
+  }
+
+  PopupMenuItem<SortItem> buildItem(SortItem item) => PopupMenuItem<SortItem>(
+        value: item,
+        child: Text(item.text),
+      );
+
+  onSelectedNowPlaying(
+    BuildContext context,
+    SortItem item,
+  ) {
+    switch (item) {
+      case SortsItems.sortByName:
+        context.read<NowPlayingProvider>().sortByNameNowPlaying();
+        break;
+      case SortsItems.sortByPopularity:
+        context.read<NowPlayingProvider>().sortByPopularityNowPlaying();
+        break;
+      default:
+    }
+  }
+
+  onSelectedPopular(
+    BuildContext context,
+    SortItem item,
+  ) {
+    switch (item) {
+      case SortsItems.sortByName:
+        context.read<PopularMovieProvider>().sortByNamePopular();
+        break;
+      case SortsItems.sortByPopularity:
+        context.read<PopularMovieProvider>().sortByPopularityPopular();
+        break;
+      default:
+    }
+  }
+
+  onSelectedUpcoming(
+    BuildContext context,
+    SortItem item,
+  ) {
+    switch (item) {
+      case SortsItems.sortByName:
+        context.read<UpcomingMovieProvider>().sortByNameUpcoming();
+        break;
+      case SortsItems.sortByPopularity:
+        context.read<UpcomingMovieProvider>().sortByPopularityUpcoming();
+        break;
+      default:
+    }
   }
 }
