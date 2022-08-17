@@ -19,9 +19,9 @@ class MovieProvider extends ChangeNotifier {
     var request = await MovieDetailUpdate().getMovieDetailMovies(movieId);
 
     movieDetailModel = MovieDetailModel.fromJson(request);
-
+        
     state = MovieDetailState.isSuccess;
-    
+
     notifyListeners();
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttery_movies/information/MovieDetailHeader.dart';
-import 'package:fluttery_movies/information/ProductionCompaniesScroller.dart';
+import 'package:fluttery_movies/information/additional_detail.dart';
+import 'package:fluttery_movies/information/movie_detail_header.dart';
+import 'package:fluttery_movies/information/production_pompanies_scroller.dart';
 import 'package:fluttery_movies/information/StoryLine.dart';
 
 import 'package:fluttery_movies/providers/movie_provider.dart';
@@ -61,6 +62,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                       child: ProductionCompaniesScroller(
                           provider.movieDetailModel.productionCompanies!),
                     ),
+                    AdditionalPage(provider.movieDetailModel.spokenLanguages!, provider.movieDetailModel.productionCountries!),
                   ],
                 ),
               ),

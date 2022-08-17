@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
       builder: (context, provider, child) {
         return Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
+          appBar: AppBar(                     
             centerTitle: true,
             title: Text(
               "Fluttery Movies",
@@ -100,28 +100,18 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
             actions: [
-              provider.currentIndex == 0
-                  ? PopupMenuButton<SortItem>(
-                      onSelected: (item) => onSelectedNowPlaying(context, item),
-                      itemBuilder: (_) => [
-                        ...SortsItems.itemSorts.map(buildItem).toList(),
-                      ],
-                    )
-                  : provider.currentIndex == 2
-                      ? PopupMenuButton<SortItem>(
-                          onSelected: (item) =>
-                              onSelectedPopular(context, item),
-                          itemBuilder: (_) => [
-                            ...SortsItems.itemSorts.map(buildItem).toList(),
-                          ],
-                        )
-                      : PopupMenuButton<SortItem>(
-                          onSelected: (item) =>
-                              onSelectedUpcoming(context, item),
-                          itemBuilder: (_) => [
-                            ...SortsItems.itemSorts.map(buildItem).toList(),
-                          ],
-                        )
+              PopupMenuButton<SortItem>(
+                onSelected: (item) {
+                  provider.currentIndex == 0
+                      ? onSelectedNowPlaying(context, item)
+                      : provider.currentIndex == 1
+                          ? onSelectedUpcoming(context, item)
+                          : onSelectedPopular(context, item);
+                },
+                itemBuilder: (_) => [
+                  ...SortsItems.itemSorts.map(buildItem).toList(),
+                ],
+              )
             ],
           ),
           body: provider.currentIndex == 0

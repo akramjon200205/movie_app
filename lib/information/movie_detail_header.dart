@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttery_movies/information/ArcBannerImage.dart';
+import 'package:fluttery_movies/information/arc_banner_image.dart';
 import 'package:fluttery_movies/information/RatingInformation.dart';
 import 'package:fluttery_movies/information/poster.dart';
 import 'package:fluttery_movies/models/movie_detail_model.dart';
@@ -64,11 +64,14 @@ class MovieDetailHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 70.0),
-                child: Poster(
-                  "https://image.tmdb.org/t/p/w500/${movies.posterPath!}",
-                  height: 190.0,
+              Hero(
+                tag: 'hero_poster_path',
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 70.0),
+                  child: Poster(
+                    "https://image.tmdb.org/t/p/w500/${movies.posterPath!}",
+                    height: 190.0,
+                  ),
                 ),
               ),
               Expanded(

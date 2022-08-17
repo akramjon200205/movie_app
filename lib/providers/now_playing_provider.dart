@@ -34,8 +34,7 @@ class NowPlayingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  searchFuncNowPlaying(String searchText) {
-    print(searchText);
+  searchFuncNowPlaying(String searchText) {    
     if (searchText.isNotEmpty) {
       List<NowPlayingMovieModel> tempSearchList = [];
 

@@ -10,7 +10,7 @@ class RatingInformation extends StatelessWidget {
     var stars = <Widget>[];
     var rate = movie.voteAverage! / 2;
     for (var i = 0; i < 5; ++i) {
-      var color = i <= rate ? theme.accentColor : Colors.black12;
+      var color = i <= rate ? theme.colorScheme.secondary : Colors.black12;
       var star = Icon(
         Icons.star,
         color: color,
@@ -35,7 +35,7 @@ class RatingInformation extends StatelessWidget {
          Text(
           movie.voteAverage.toString(),
           style: textTheme.titleMedium!
-              .copyWith(fontWeight: FontWeight.w400, color: theme.accentColor),
+              .copyWith(fontWeight: FontWeight.w400, color: theme.colorScheme.secondary),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),

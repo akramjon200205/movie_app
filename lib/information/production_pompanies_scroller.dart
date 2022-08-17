@@ -16,7 +16,7 @@ class ProductionCompaniesScroller extends StatelessWidget {
             backgroundImage: NetworkImage(
               companies.logoPath != null
                   ? "https://image.tmdb.org/t/p/w500/${companies.logoPath}"
-                  : "https://ibb.co/cma2t8",
+                  : "https://i.ibb.co/RPKnckW/ic-launcher-movies.png",
             ),
             radius: 35.0,
           ),
